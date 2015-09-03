@@ -1,0 +1,15 @@
+{
+    "name": "vitlabs/modules",
+    "description": "Modules manager.",
+    "authors": [
+		{
+			"name": "Matej Vitaz",
+			"email": "mspiderv@gmail.com"
+		}
+	],
+    "autoload": {
+        "psr-4": {
+            "Vitlabs\\Modules\\": ""
+        }
+    }
+}
