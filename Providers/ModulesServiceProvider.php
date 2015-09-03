@@ -15,6 +15,12 @@ class ModulesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Add dirs from config
+        foreach (config('modules.dirs') as $dir)
+        {
+            Modules::addDir(base_path($dir));
+        }
+
         // Boot modules
         foreach (Modules::getInstalledModules() as $module)
         {
@@ -49,6 +55,16 @@ class ModulesServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Publish configuration file
+        $this->publishes([
+            __DIR__ . '/../Config/modules.php' => config_path('modules.php'),
+        ], 'config');
+
+        // Merge configuration file
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Config/modules.php', 'modules'
+        );
+
         // Bind ModulesRepositoryContract implementation
         $this->app->bind('Vitlabs\Modules\Contracts\ModulesRepositoryContract', 'Vitlabs\Modules\NativeModulesRepository');
 
